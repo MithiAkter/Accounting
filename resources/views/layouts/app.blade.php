@@ -5,30 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Twitter -->
-    <meta name="twitter:site" content="@themepixels">
-    <meta name="twitter:creator" content="@themepixels">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Starlight">
-    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
-    <meta name="twitter:image" content="http://themepixels.me/starlight/img/starlight-social.png">
-
-    <!-- Facebook -->
-    <meta property="og:url" content="http://themepixels.me/starlight">
-    <meta property="og:title" content="Starlight">
-    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
-
-    <meta property="og:image" content="http://themepixels.me/starlight/img/starlight-social.png">
-    <meta property="og:image:secure_url" content="http://themepixels.me/starlight/img/starlight-social.png">
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="600">
-
-    <!-- Meta -->
-    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
-    <meta name="author" content="ThemePixels">
-
-    <title>Accounting Admin Panel</title>
+    <title>Test App</title>
 
 
 
@@ -46,73 +23,71 @@
     <link href="{{ asset('backend/lib/summernote/summernote-bs4.css')}}" rel="stylesheet">
 
   </head>
-
+  <style>
+    /* Hover effect on the text inside the dropdown */
+    .dropdown-menu .dropdown-item:hover {
+        color: black !important;  /* Make the text color black */
+    }
+</style>
   <body>
-     
-          <!-- ########## START: LEFT PANEL ########## -->
-      <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> Accounting</a></div>
-      <div class="sl-sideleft">
-        <div class="sl-sideleft-menu">
-          <a href="" class="sl-menu-link active">
-            <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-              <span class="menu-item-label">Dashboard</span>
-            </div><!-- menu-item -->
-          </a><!-- sl-menu-link -->
 
-          <a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-              <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
-              <span class="menu-item-label">Category</span>
-              <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-            
-          </a><!-- sl-menu-link -->
-          <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="" class="nav-link">Category</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Sub Category</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Brand</a></li>
-          </ul>
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+      <div class="container">
+          {{-- <a class="navbar-brand" href="{{ url('/') }}">
+              Laravel 11 User Roles and Permissions Tutorial - ItSolutionStuff.com
+          </a> --}}
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+              <span class="navbar-toggler-icon"></span>
+          </button>
 
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <!-- Left Side Of Navbar -->
+              <ul class="navbar-nav me-auto">
+              </ul>
 
-          <a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-              <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
-              <span class="menu-item-label">Coupon</span>
-              <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-          </a><!-- sl-menu-link -->
-          <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="" class="nav-link">Coupon</a></li>
-          </ul>
-        </div>
+              <!-- Right Side Of Navbar -->
+              <ul class="navbar-nav ms-auto">
+                  <!-- Authentication Links -->
+                  @guest
+                      @if (Route::has('login'))
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                          </li>
+                      @endif
 
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
-            <span class="menu-item-label">Products</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
+                      @if (Route::has('register'))
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                          </li>
+                      @endif
+                  @else
+                      <li class="nav-item dropdown">
+                          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                              {{ Auth::user()->name }}
+                          </a>
+
+                          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="{{ route('logout') }}"
+                                 onclick="event.preventDefault();
+                                               document.getElementById('logout-form').submit();">
+                                  {{ __('Logout') }}
+                              </a>
+
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                  @csrf
+                              </form>
+                          </div>
+                      </li>
+                  @endguest
+              </ul>
           </div>
-        </a>
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="" class="nav-link">Add Product</a></li>
-          <li class="nav-item"><a href="" class="nav-link">All Product</a></li>
-        </ul>
-
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-            <span class="menu-item-label">Others</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div>
-        </a>
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="" class="nav-link">Newsletter</a></li>
-        </ul>
       </div>
+  </nav>
 
-
-      <!-- ########## START: HEAD PANEL ########## -->
+     
+          
+      @auth
+            <!-- ########## START: HEAD PANEL ########## -->
       <div class="sl-header">
         <div class="sl-header-left">
           <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>
@@ -122,7 +97,7 @@
           <nav class="nav">
             <div class="dropdown">
               <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                <span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>
+                <span class="logged-name">Logout<span class="hidden-md-down"></span></span>
                 <img src="{{asset ('public/backend/img/img3.jpg') }}" class="wd-32 rounded-circle" alt="">
               </a>
               <div class="dropdown-menu dropdown-menu-header wd-200">
@@ -132,24 +107,70 @@
                   <li><a href="#"><i class="icon ion-power"></i> Sign Out</a></li>
                 </ul> --}}
 
-                       <a href="" class="dropdown-item"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="ri-logout-box-line fs-18 align-middle me-1"></i>
-                            <span style="color: black">Logout</span>
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                     onclick="event.preventDefault();
+                                   document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
+
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
+              
 
               </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
           </nav>
         </div><!-- sl-header-right -->
       </div><!-- sl-header -->
-      
-      <div class="sl-mainpanel">
-        @yield('admin_content')
-      </div>
+    <!-- ########## START: LEFT PANEL ########## -->
+      <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> Test App</a></div>
+      <div class="sl-sideleft">
+        <div class="sl-sideleft-menu">
+          <a href="{{ route('products.index') }}" class="sl-menu-link">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon ion-ios-cart tx-20"></i>
+              <span class="menu-item-label">Manage Product</span>
+              {{-- <i class="menu-item-arrow fa fa-angle-down"></i> --}}
+            </div><!-- menu-item -->
+            
+          </a><!-- sl-menu-link -->
+          <a href="" class="sl-menu-link">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon ion-person-stalker tx-20"></i>
+              <span class="menu-item-label">Customers</span>
+            </div><!-- menu-item -->
+            
+          </a><!-- sl-menu-link -->
+          <a href="{{ route('users.index') }}" class="sl-menu-link">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon ion-person tx-20"></i>
+              <span class="menu-item-label">Manage Users</span>
+            </div><!-- menu-item -->
+            
+          </a><!-- sl-menu-link -->
+          <a href="{{ route('roles.index') }}" class="sl-menu-link">
+            <div class="sl-menu-item">
+              <i class="menu-item-icon ion-gear-b tx-20"></i>
+              <span class="menu-item-label">Manage Role</span>
+            </div><!-- menu-item -->
+          </a><!-- sl-menu-link -->
+          @endauth
+        </div>
+      </div> 
+      {{-- <div class="sl-mainpanel">
+        @yield('content')
+      </div> --}}
+
+       <!-- Main Content -->
+       <div class="sl-mainpanel">
+        
+            <div class="card-body">
+                @yield('content')
+            </div>
+        
+    </div>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

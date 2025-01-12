@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\BuyProductController;
    
 Route::get('/', function () {
     return view('auth.login');
@@ -28,12 +30,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/admin/store/product', [ProductController::class, 'store'])->name('store.product');
     Route::get('/edit/product/{id}', [ProductController::class, 'EditProduct'])->name('product.edit');
     Route::post('/update/product/{id}', [ProductController::class, 'UpdateProduct'])->name('product.update');
-    Route::get('/delete/product/{id}', [ProductController::class, 'DeleteProduct'])->name('product.destroy');;
-    Route::get('/view/product/{id}', [ProductController::class, 'ViewProduct'])->name('product.view');;
+    Route::get('/delete/product/{id}', [ProductController::class, 'DeleteProduct'])->name('product.destroy');
+    Route::get('/view/product/{id}', [ProductController::class, 'ViewProduct'])->name('products.show');
+    //Customer Section
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+    Route::post('/customer-store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::put('/customer-update/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::get('/customer-delete/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
 
+    Route::get('/buyproduct', [BuyProductController::class, 'index'])->name('buyproduct');
+    Route::get('/buy-product/{id}', [BuyProductController::class, 'buyProduct'])->name('buy.product');
+    Route::post('/admin/store/buyproduct', [BuyProductController::class, 'store'])->name('store.buyproduct');
 
-    Route::get('/inactive/product/{id}', [ProductController::class, 'Inactive'])->name('inactive.product');;
-    Route::get('/active/product/{id}', [ProductController::class, 'Active'])->name('active.product');;
 
 });

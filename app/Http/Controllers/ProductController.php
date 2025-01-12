@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -10,24 +9,12 @@ class ProductController extends Controller
 {
     public function index(){
         $product=DB::table('products')->get();
-        // ->join('categories','products.category_id','categories.id')->join('brands','products.brand_id','brands.id')
-        // ->select('products.*','categories.category_name','brands.brand_name')
-        // ->get();
-        // return response()->json($product);
-        return view ('products.index',compact('product'));
-        // return view ('products.index');
+        $customer=DB::table('customers')->get();
+        return view ('products.index',compact('product','customer'));
     }
     public function create(){
-        // $category=DB::table('categories')->get();
-        // $brand=DB::table('brands')->get();
-        // return view('products.create',compact('category','brand'));
         return view('products.create');
     }
-    //subcattegory collected by ajax request
-    // public function GetSubcat($category_id){
-    //     $cat=DB::table("subcategories")->where("category_id",$category_id)->get();
-    //     return json_encode($cat);
-    // }
     public function store(Request $request){
 
         // dd($request->all());
@@ -68,21 +55,11 @@ class ProductController extends Controller
         $product=DB::table('products')
                 ->where('products.id',$id)
                 ->first();
-                // ->join('categories','products.category_id','categories.id')
-                // ->join('brands','products.brand_id','brands.id')
-                // ->join('subcategories','products.subcategory_id','subcategories.id')
-                // ->select('products.*','categories.category_name','brands.brand_name',
-                //     'subcategories.subcategory_name')
-                // ->where('products.id',$id)
-                // ->first();
-        // return response()->json($product);
-        // return view ('admin.product.show_product',compact('product'));
-        return view ('products.show');
+        return view ('products.show',compact('product'));
 
     }
     public function EditProduct($id){
         $product=DB::table('products')->where('id',$id)->first();
-        // return response()->json($product);;
         return view('products.edit',compact('product'));
     }
     

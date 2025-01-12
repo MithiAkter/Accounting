@@ -32,22 +32,18 @@
                         <td>{{ $row->sell_qty }}</td>
                         <td>{{ $row->per_unit_price }} taka</td>
                         <td>
-                            <a href="" class="btn btn-info btn-sm" style="width:60px; padding:5px; border-radius: 5px;"><i class="fa fa-edit"></i></a>
-                            <a href="" id="delete" class="btn btn-danger btn-sm" style="width:60px; padding:5px; border-radius: 5px;">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                            <a href="" class="btn btn-warning btn-sm" style="width:60px; padding:5px; border-radius: 5px;"><i class="fa fa-eye"></i></a>
-                            
-                            {{-- <a href="{{ route('product.edit', $row->id) }}" class="btn btn-info btn-sm" style="width:60px; padding:5px; border-radius: 5px;"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('product.edit', $row->id) }}" class="btn btn-info btn-sm" style="width:60px; padding:5px; border-radius: 5px;"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('products.show', $row->id) }}" class="btn btn-warning btn-sm" style="width:60px; padding:5px; border-radius: 5px;"><i class="fa fa-eye"></i></a>
                             <a href="{{ route('product.destroy', $row->id) }}" id="delete" class="btn btn-danger btn-sm" style="width:60px; padding:5px; border-radius: 5px;">
                                 <i class="fa fa-trash"></i>
                             </a>
-                            <a href="{{ route('product.view', $row->id) }}" class="btn btn-warning btn-sm" style="width:60px; padding:5px; border-radius: 5px;"><i class="fa fa-eye"></i></a>
-                            @if($row->status == 1)
-                                <a href="{{ route('inactive.product', $row->id) }}" class="btn btn-sm" style="width:60px; padding:5px; border-radius: 5px; border: 2px solid #bbc4c2;"><i class="fa fa-check-circle" style="color: #28a745" title="Inactive"></i></a>
-                            @else
-                                <a href="{{ route('active.product', $row->id) }}" class="btn btn-sm" style="width:60px; padding:5px; border-radius: 5px; border: 2px solid #bbc4c2;"><i class="fa fa-check-circle" style="color: #EE4B2B;;" title="Active"></i></a>
-                            @endif --}}
+                            {{-- <a href="{{ route('buy.product') }}" class="btn btn-primary btn-sm" style="width:60px; padding:5px; border-radius: 5px;">Buy</a> --}}
+                            {{-- @can('buy-product-list') --}}
+                            <a href="{{ route('buy.product', $row->id) }}" class="btn btn-primary btn-sm" style="width:60px; padding:5px; border-radius: 5px;">
+                                <i class="ri-arrow-right-line"></i>
+                                <span> Buy </span>
+                            </a>
+                            {{-- @endcan --}}
                         </td>
                     </tr>
                     @endforeach

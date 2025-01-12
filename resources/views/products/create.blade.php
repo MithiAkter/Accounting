@@ -24,7 +24,7 @@
     </style>
 
         <div class="card pd-20 pd-sm-40">
-            <h6 class="card-body-title">New Product Add <a href="#" class="btn btn-success btn-sm pull-right">All Product</a></h6>
+            <h6 class="card-body-title">New Product Add <a href="{{ route('products.index') }}" class="btn btn-success btn-sm pull-right">All Product</a></h6>
             <form action="{{ route('store.product') }}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="form-layout">

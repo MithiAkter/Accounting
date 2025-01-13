@@ -14,19 +14,50 @@ class PermissionTableSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-           'buy-product-list',
-           'role-list',
-           'role-create',
-           'role-edit',
-           'role-delete',
-           'product-list',
-           'product-create',
-           'product-edit',
-           'product-delete'
+            
+            //Product
+            'product-list',
+            'product-create',
+            'product-destroy',
+            'product-show',
+            'product-edit',
+
+            //Buy Product
+            'buy-product-list',
+            'buy-product-create-list',
+           
+            //Customer
+           'customer-list',
+           'customer-create-list',
+           'customer-edit-list',
+           'customer-delete-list',
+
+           //User
+            'user-list',
+            'user-show',
+            'user-create',
+            'user-edit',
+            'user-delete',
+           
+            //Role
+            'role-list',
+            'role-show',
+            'role-create',
+            'role-edit',
+            'role-delete',
+
+            //Invoice
+            'invoice',
+            'payment',
+
+
+
         ];
         
         foreach ($permissions as $permission) {
-             Permission::create(['name' => $permission]);
+            if (!Permission::where('name', $permission)->exists()) {
+                Permission::create(['name' => $permission]);
+            }
         }
     }
 }

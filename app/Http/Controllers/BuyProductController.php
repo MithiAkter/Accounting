@@ -34,55 +34,108 @@ class BuyProductController extends Controller
     //         return Redirect()->back()->with($notification);
 
     // }
-    public function store(Request $request)
+//     public function store(Request $request)
+// {
+
+//     $product = DB::table('products')->where('id', $request->product_id)->first();
+
+//     if ($product) {
+
+//         $new_qty = $product->product_qty - $request->product_qty;
+
+
+//         if ($new_qty >= 0) {
+
+//             DB::table('products')->where('id', $request->product_id)->update(['product_qty' => $new_qty]);
+
+
+//             $data = [
+//                 'product_id' => $request->product_id,
+//                 'customer_id' => $request->customer_id,
+//                 'product_qty' => $request->product_qty
+//             ];
+//             DB::table('buyproduct')->insert($data);
+
+
+//             $notification = array(
+//                 'messege' => 'Buy Product Inserted Successfully',
+//                 'alert-type' => 'success'
+//             );
+//         } else {
+
+//             $notification = array(
+//                 'messege' => 'Insufficient stock available',
+//                 'alert-type' => 'error'
+//             );
+//         }
+//     } else {
+       
+//         $notification = array(
+//             'messege' => 'Product not found',
+//             'alert-type' => 'error'
+//         );
+//     }
+
+    
+//     return Redirect()->back()->with($notification);
+// }
+
+
+
+public function store(Request $request)
 {
-    // Retrieve the current product from the database
+    // Validate the input
+    $request->validate([
+        'product_qty' => 'required|integer|min:1', // Ensure product_qty is at least 1
+        'customer_id' => 'required|exists:customers,id', // Ensure a valid customer ID
+        'product_id' => 'required|exists:products,id', // Ensure a valid product ID
+    ], [
+        'product_qty.min' => 'Enter Sufficient Product Value', // Custom error message
+    ]);
+
     $product = DB::table('products')->where('id', $request->product_id)->first();
 
     if ($product) {
-        // Calculate the new product quantity
         $new_qty = $product->product_qty - $request->product_qty;
 
-        // Check if the new quantity is valid (i.e., not negative)
         if ($new_qty >= 0) {
-            // Update the product quantity in the database
+            // Update the stock in the database
             DB::table('products')->where('id', $request->product_id)->update(['product_qty' => $new_qty]);
 
             // Insert the buyproduct record
             $data = [
                 'product_id' => $request->product_id,
                 'customer_id' => $request->customer_id,
-                'product_qty' => $request->product_qty
+                'product_qty' => $request->product_qty,
+                'payment' => $request->payment,
             ];
             DB::table('buyproduct')->insert($data);
 
             // Prepare success message
-            $notification = array(
+            $notification = [
                 'messege' => 'Buy Product Inserted Successfully',
-                'alert-type' => 'success'
-            );
+                'alert-type' => 'success',
+            ];
         } else {
             // Prepare error message if there's not enough stock
-            $notification = array(
+            $notification = [
                 'messege' => 'Insufficient stock available',
-                'alert-type' => 'error'
-            );
+                'alert-type' => 'error',
+            ];
         }
     } else {
         // Handle the case if the product does not exist
-        $notification = array(
+        $notification = [
             'messege' => 'Product not found',
-            'alert-type' => 'error'
-        );
+            'alert-type' => 'error',
+        ];
     }
 
-    // Redirect back with notification
-    return Redirect()->back()->with($notification);
+    // Redirect back with notification and pass the updated stock
+    return Redirect()->back()->with($notification)->with('updated_stock', $new_qty);
 }
 
-    // public function index(){
-    //     return view ('products.index_buyproduct');
-    // }
+
     public function index(){
         $buyproducts = DB::table('buyproduct')
         ->join('products','buyproduct.product_id','products.id')
@@ -91,8 +144,4 @@ class BuyProductController extends Controller
         ->get();
         return view('products.index_buyproduct',compact('buyproducts'));
     }
-
-
-
-
 }

@@ -61,12 +61,12 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    {{-- <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-control-label">Sell Quantity: <span class="tx-danger">*</span></label>
                             <input class="form-control" type="text" name="sell_qty"  value="{{ $product->sell_qty }}">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-control-label">Per Unit Price <span class="tx-danger">*</span></label>

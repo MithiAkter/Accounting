@@ -128,6 +128,8 @@
       <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> Test App</a></div>
       <div class="sl-sideleft">
         <div class="sl-sideleft-menu">
+
+          @can('product-list')
           <a href="{{ route('products.index') }}" class="sl-menu-link">
             <div class="sl-menu-item">
               <i class="menu-item-icon ion-ios-cart tx-20"></i>
@@ -135,31 +137,43 @@
               {{-- <i class="menu-item-arrow fa fa-angle-down"></i> --}}
             </div><!-- menu-item -->          
           </a><!-- sl-menu-link -->
+          @endcan
+
+          @can('customer-list')
           <a href="{{ route('customer') }}" class="sl-menu-link">
             <div class="sl-menu-item">
               <i class="menu-item-icon ion-person-stalker tx-20"></i>
               <span class="menu-item-label">Customers</span>
             </div><!-- menu-item -->
           </a>
+          @endcan
+
+          @can('buy-product-list')
           <a href="{{ route('buyproduct') }}" class="sl-menu-link">
             <div class="sl-menu-item">
               <i class="menu-item-icon ion-bag tx-20"></i>
               <span class="menu-item-label">Sell Product</span>
             </div><!-- menu-item -->
           </a>
+          @endcan
+
+          @can('user-list')
           <a href="{{ route('users.index') }}" class="sl-menu-link">
             <div class="sl-menu-item">
               <i class="menu-item-icon ion-person tx-20"></i>
               <span class="menu-item-label">Manage Users</span>
             </div><!-- menu-item -->
+          @endcan
             
           </a><!-- sl-menu-link -->
+          @can('role-list')
           <a href="{{ route('roles.index') }}" class="sl-menu-link">
             <div class="sl-menu-item">
               <i class="menu-item-icon ion-gear-b tx-20"></i>
               <span class="menu-item-label">Manage Role</span>
             </div><!-- menu-item -->
           </a><!-- sl-menu-link -->
+          @endcan
 
 
           

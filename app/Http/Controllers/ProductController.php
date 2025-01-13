@@ -21,7 +21,7 @@ class ProductController extends Controller
         $data=array();
         $data['product_name']=$request->product_name;
         $data['product_qty']=$request->product_qty;
-        $data['sell_qty']=$request->sell_qty;
+        // $data['sell_qty']=$request->sell_qty;
         $data['per_unit_price']=$request->per_unit_price;
 
         if ($request->hasFile('product_img')) {
@@ -37,7 +37,7 @@ class ProductController extends Controller
             'messege'=>'Product Inserted Successfully',
             'alert-type'=>'success'
              );
-            return Redirect()->back()->with($notification);
+             return Redirect()->route('all.product')->with($notification);
    
     }
     public function DeleteProduct($id){
@@ -70,7 +70,7 @@ class ProductController extends Controller
         $data=array();
         $data['product_name']=$request->product_name;
         $data['product_qty']=$request->product_qty;
-        $data['sell_qty']=$request->sell_qty;
+        // $data['sell_qty']=$request->sell_qty;
         $data['per_unit_price']=$request->per_unit_price;
     
         // Check and handle image uploads

@@ -7,7 +7,7 @@
             <h2>Role Management</h2>
         </div>
         <div class="pull-right">
-        @can('role-create')
+            @can('role-create')
             <a class="btn btn-success btn-sm mb-2" href="{{ route('roles.create') }}"><i class="fa fa-plus"></i> Create New Role</a>
             @endcan
         </div>
@@ -21,6 +21,7 @@
 @endsession
 
 <table class="table table-bordered">
+    @php($serial = 1)
   <tr>
      <th width="100px">No</th>
      <th>Name</th>
@@ -28,10 +29,12 @@
   </tr>
     @foreach ($roles as $key => $role)
     <tr>
-        <td>{{ ++$i }}</td>
+        <td>{{$serial++}}</td>
         <td>{{ $role->name }}</td>
         <td>
+            @can('role-show')
             <a class="btn btn-info btn-sm" href="{{ route('roles.show',$role->id) }}" style="border-radius: 5px;">Show</a>
+            @endcan
             @can('role-edit')
                 <a class="btn btn-primary btn-sm" href="{{ route('roles.edit',$role->id) }}" style="border-radius: 5px;">Edit</a>
             @endcan

@@ -5,14 +5,17 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-end">
+                    @can('customer-create-list')
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addNewModalId">Add New</button>
+                    @endcan
                 </div>
             </div>
             <div class="card-body">
                 <table id="basic-datatable" class="table table-striped dt-responsive nowrap w-100">
+                    @php($serial = 1)
                     <thead>
                     <tr>
-                        <th>S/N</th>
+                        <td>No</td>
                         <th>Name</th>
                         <th>email</th>
                         <th>phone</th>
@@ -23,7 +26,7 @@
                     <tbody>
                     @foreach($customer as $key=> $customerData)
                         <tr>
-                            <td>{{$key+1}}</td>
+                            <td>{{$serial++}}</td>
                             <td>{{$customerData->name}}</td>
                             <td>{{$customerData->email}}</td>
                             <td>{{$customerData->phone}}</td>
@@ -33,10 +36,12 @@
 
                             <td style="width: 100px;">
                                 <div class="d-flex justify-content-end gap-1">
-                                    
+                                    @can('customer-edit-list')
                                         <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editNewModalId{{$customerData->id}}" style="width:60px; padding:5px; border-radius: 5px;">Edit</button>
+                                    @endcan
+                                    @can('customer-delete-list')
                                         <a href="{{route('customer.destroy',$customerData->id)}}" id="delete" class="btn btn-danger btn-sm" style="width:60px; padding:5px; border-radius: 5px; margin-left:5px;">Delete</a>
-                            </a>
+                                    @endcan
                                     
                                 </div>
                             </td>

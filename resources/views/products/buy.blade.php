@@ -26,8 +26,24 @@
     <div class="card pd-20 pd-sm-40">
         <h6 class="card-body-title">
             New Product Add
-            <a href="{{ route('products.index') }}" class="btn btn-success btn-sm pull-right">All Product</a>
+            <a href="{{ route('buyproduct') }}" class="btn btn-success btn-sm pull-right" style="border-radius: 5px;">Sell Product</a>
         </h6>
+
+
+        <!-- Notification and Error Messages -->
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+
+        @if(session('messege'))
+            <div class="alert alert-{{ session('alert-type') }}">
+                {{ session('messege') }}
+            </div>
+        @endif
 
         <form action="{{ route('store.buyproduct') }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -63,14 +79,45 @@
                             <input 
                                 class="form-control" 
                                 type="number" 
+                                id="product_qty" 
                                 name="product_qty" 
-                                max="{{ $product->product_qty - $product->sell_qty }}" 
-                                placeholder="Enter Buy Product Quantity" required>
-                            <small class="text-muted">
-                                Product Exist: {{ $product->product_qty - $product->sell_qty }}
-                            </small>
+                                min="1" 
+                                value="{{ session('updated_stock', $product->product_qty) }}" 
+                                placeholder="Enter Buy Product Quantity" 
+                                required 
+                                oninput="validateQuantity()" 
+                                max="{{ session('updated_stock', $product->product_qty) }}">
                         </div>
                     </div>
+                    
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Total Price: </label>
+                            <p id="total-price">
+                                {{ session('total_price', 0) }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Section -->
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Payment: <span class="tx-danger">*</span></label>
+                            <!-- Display the calculated total price as the placeholder -->
+                            <input 
+                                class="form-control" 
+                                type="number" 
+                                name="payment" 
+                                id="payment" 
+                                placeholder="Enter Payment" 
+                                required 
+                                min="0" 
+                                value="{{ old('payment', session('payment')) }}">
+                        </div>
+                    </div>
+                    
+                    
+
                     <!-- Form Footer -->
                     <div class="form-layout-footer">
                         <button class="btn btn-info mg-r-5">Submit Form</button>
@@ -85,6 +132,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js" crossorigin="anonymous"></script>
 
+    <script>
+        // Function to update the total price dynamically based on the product quantity
+        function updateTotalPrice() {
+            const quantity = parseInt(document.getElementById('product_qty').value); // Get the entered quantity
+            const unitPrice = {{ session('per_unit_price', $product->per_unit_price) }}; // Get the per unit price from the session
+    
+            // Calculate the total price
+            const totalPrice = quantity * unitPrice;
+    
+            // Update the total price on the page
+            document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Format the price to 2 decimal places
+        }
+    
+        // Initial setup when the page loads (set default total price and update it dynamically)
+        window.onload = function() {
+            updateTotalPrice(); // Set the total price based on the default value of quantity
+        };
+    </script>
+
     {{-- Summernote Initialization --}}
     <script>
         $(function () {
@@ -95,57 +161,8 @@
         });
     </script>
 
-    {{-- AJAX for Subcategory --}}
-    <script>
-        $(document).ready(function () {
-            $('select[name="category_id"]').on('change', function () {
-                const categoryId = $(this).val();
-                if (categoryId) {
-                    $.ajax({
-                        url: "{{ url('/get/subcategory/') }}/" + categoryId,
-                        type: "GET",
-                        dataType: "json",
-                        success: function (data) {
-                            const subcategorySelect = $('select[name="subcategory_id"]');
-                            subcategorySelect.empty();
-                            $.each(data, function (key, value) {
-                                subcategorySelect.append('<option value="' + value.id + '">' + value.subcategory_name + '</option>');
-                            });
-                        },
-                    });
-                } else {
-                    alert('Please select a valid category.');
-                }
-            });
-        });
-    </script>
 
-    {{-- Image Preview --}}
-    <script>
-        function readURL(input, target) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $(target).attr('src', e.target.result).show();
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                $(target).hide();
-            }
-        }
-    </script>
 
-    <script>
-        $('#image_input').on('change', function () {
-            readURL(this, '#one');
-        });
-        $('#image_input_2').on('change', function () {
-            readURL(this, '#two');
-        });
-        $('#image_input_3').on('change', function () {
-            readURL(this, '#three');
-        });
-    </script>
 
     {{-- TagsInput Initialization --}}
     <script>

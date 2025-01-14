@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BuyProductController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PaymentShowController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -45,14 +45,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/admin/store/buyproduct', [BuyProductController::class, 'store'])->name('store.buyproduct');
 
     //Customer Section
-    Route::get('/payment', [PaymentController::class, 'paymentIndex'])->name('payment');
+    // Route::get('/payment', [BuyProductController::class, 'paymentIndex'])->name('payment');
+    
+    Route::get('/payment', [BuyProductController::class, 'paymentIndex'])->name('payment.index');
+    Route::post('/payment/process', [BuyProductController::class, 'processPayment'])->name('process.payment');
+    Route::get('/get-due-payment', [BuyProductController::class, 'getDuePayment'])->name('get.due.payment');
+    Route::post('/process-payment', [BuyProductController::class, 'processPayment'])->name('process.payment');
 
-    // //sell History
-    // Route::get('/sale-history', [SaleHistoryController::class, 'saleHistory'])->name('sale.history');
-    // Route::get('/sale-invoice/{id}', [SaleHistoryController::class, 'invoice'])->name('sale.history.invoice');
 
-    // //sell History Details
-    // Route::get('/sale/details/{id}', [SellHistoryDetailsController::class, 'index'])->name('sale.details');
-    // Route::post('/sale-details-store', [SellHistoryDetailsController::class, 'store'])->name('sale.details.store');
+    Route::get('/payments/{customerId}/{productId}', [PaymentShowController::class, 'showPaymentDetails'])->name('payment.show');
 
+    
 });

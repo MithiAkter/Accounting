@@ -1,114 +1,81 @@
-@extends('layouts.app')
-@section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <style>
+        /* Style your invoice as needed */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .invoice-details {
+            margin-bottom: 30px;
+        }
+        .invoice-details p {
+            font-size: 16px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Invoice</h1>
 
-                    <!-- Invoice Logo-->
-                    <div class="clearfix">
-                        <div class="float-start mb-3">
-                            <img src="" alt="dark logo" height="85">
-                        </div>
-                        <div class="float-end">
-                            <h4 class="m-0 d-print-none">Invoice</h4>
-                        </div>
-                    </div>
+        <div class="invoice-details">
+            <p><strong>Customer:</strong> {{ $customer->name }}</p>
+            <p><strong>Product:</strong> {{ $product->product_name }}</p>
+            <p><strong>Quantity:</strong> {{ $buyProduct->product_qty }}</p>
+            <p><strong>Total Price:</strong> ${{ number_format($product->per_unit_price * $buyProduct->product_qty, 2) }}</p>
+            <p><strong>Paid:</strong> ${{ number_format($buyProduct->payment, 2) }}</p>
+            <p><strong>Due Payment:</strong> ${{ number_format($buyProduct->due_payment, 2) }}</p>
+        </div>
 
-                    <!-- Invoice Detail-->
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="float-end mt-3">
-                                <p><b>Hello, {{$sale->customer->name}}</b></p>
-                                <p class="text-muted fs-13">
-                                    Please review your invoice carefully and ensure all details are correct. If you have
-                                    any questions or notice any discrepancies, do not hesitate to contact us.
-                                </p>
-                            </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ $product->product_name }}</td>
+                    <td>{{ $buyProduct->product_qty }}</td>
+                    <td>${{ number_format($product->per_unit_price, 2) }}</td>
+                    <td>${{ number_format($product->per_unit_price * $buyProduct->product_qty, 2) }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-                        </div>
-                        <div class="col-sm-4 offset-sm-2">
-                            <div class="mt-3 float-sm-end">
-                                <p class="fs-13"><strong>Order Date: </strong>
-                                    &nbsp;&nbsp;&nbsp; {{  Carbon\Carbon::parse($sale->created_at)->format('d M Y') }}
-                                </p>
-                                <p class="fs-13"><strong>Order Status: </strong> <span
-                                        class="badge bg-success float-end">Paid</span></p>
-                                <p class="fs-13"><strong>Invoice : </strong> <span
-                                        class="float-end">#{{$sale->invoice_no}}</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-4">
-                        <div class="col-6">
-                            <h6 class="fs-14">Address</h6>
-                            <address>
-                                {{$sale->customer->phone}}<br>
-                                {{$sale->customer->address}}
-                            </address>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table table-sm table-centered table-hover table-borderless mb-0 mt-3">
-                                    <thead class="border-top border-bottom bg-light-subtle border-light">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Product</th>
-                                        <th>Unit Cost</th>
-                                        <th>Sale Qty</th>
-                                        <th>Total</th>
-                                        <th>Paid</th>
-                                        <th>Due</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach($sale->sellHistory as $key=>$sellHistoryData)
-                                        <tr>
-                                            <td class="">{{$key+1}}</td>
-                                            <td>{{$sellHistoryData->sellProductions->production->product_design->product_name}}</td>
-                                            <td>{{$sellHistoryData->sellProductions->unit_price}}</td>
-                                            <td>{{$sellHistoryData->sellProductions->sell_qty}}</td>
-                                            <td>{{$sellHistoryData->sellProductions->sell_qty*$sellHistoryData->sellProductions->unit_price}}</td>
-                                            <td>{{$sellHistoryData->payment}}</td>
-                                            <td>{{$sellHistoryData->due}}</td>
-                                        </tr>
-                                        @endforeach
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="clearfix pt-3">
-                                <h6 class="text-muted fs-14">Notes:</h6>
-                                <small>
-                                    All accounts are to be paid within 7 days from receipt of
-                                    invoice. To be paid by cheque or credit card or direct payment
-                                    online. If account is not paid within 7 days the credits details
-                                    supplied as confirmation of work undertaken will be charged the
-                                    agreed quoted fee noted above.
-                                </small>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="d-print-none mt-4">
-                        <div class="text-center">
-                            <a href="javascript:window.print()" class="btn btn-primary"><i class="ri-printer-line"></i>
-                                Print</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="total">
+            <p><strong>Total Due Payment:</strong> ${{ number_format($buyProduct->due_payment, 2) }}</p>
         </div>
     </div>
-
-@endsection
+</body>
+</html>

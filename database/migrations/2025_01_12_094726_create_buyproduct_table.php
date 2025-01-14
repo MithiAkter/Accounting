@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->integer('product_qty');
             $table->integer('payment');
+            $table->integer('due_payment')->nullable();
             $table->timestamps();
         });
     }

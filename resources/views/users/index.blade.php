@@ -8,7 +8,7 @@
         </div>
         <div class="pull-right">
             @can('user-create')
-            <a class="btn btn-success mb-2" href="{{ route('users.create') }}"><i class="fa fa-plus"></i> Create New User</a>
+            <a class="btn btn-sm btn-success mb-2" style="border-radius: 8px;" href="{{ route('users.create') }}"><i class="fa fa-plus"></i> Create New User</a>
             @endcan
         </div>
     </div>

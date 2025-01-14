@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->string('product_img')->nullable();
             $table->integer('product_qty');
+            $table->integer('total_qty')->nullable();
             $table->integer('new_qty')->nullable();
             $table->decimal('per_unit_price', 10, 2);
             $table->timestamps();

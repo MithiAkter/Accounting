@@ -21,6 +21,7 @@ class ProductController extends Controller
         $data=array();
         $data['product_name']=$request->product_name;
         $data['product_qty']=$request->product_qty;
+        $data['total_qty']=$request->product_qty;
         // $data['sell_qty']=$request->sell_qty;
         $data['per_unit_price']=$request->per_unit_price;
 
@@ -104,7 +105,7 @@ class ProductController extends Controller
                 'message' => 'Failed to Update Product',
                 'alert-type' => 'error'
             );
-            return Redirect()->route('all.product')->with($notification);
+            return Redirect()->route('all.product');
         }
     }
 

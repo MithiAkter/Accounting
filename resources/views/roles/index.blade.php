@@ -8,7 +8,7 @@
         </div>
         <div class="pull-right">
             @can('role-create')
-            <a class="btn btn-success btn-sm mb-2" href="{{ route('roles.create') }}"><i class="fa fa-plus"></i> Create New Role</a>
+            <a class="btn btn-success btn-sm mb-2" style="border-radius: 8px;" href="{{ route('roles.create') }}"><i class="fa fa-plus"></i> Create New Role</a>
             @endcan
         </div>
     </div>

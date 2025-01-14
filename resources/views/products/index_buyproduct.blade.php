@@ -14,7 +14,7 @@
         <h6 class="card-body-title">
             Product List
             @can('product-show')
-            <a href="{{ route('products.index') }}" class="btn btn-warning" style="float: right;">All Product</a>
+            <a href="{{ route('products.index') }}" class="btn btn-warning btn-sm" style="margin-left:5px; border-radius: 5px; float: right;">All Product</a>
             @endcan
         </h6>
         <div class="table-wrapper">
@@ -28,8 +28,7 @@
                         <th class="wd-10p">Product Quantity</th>
                         <th class="wd-10p">Per Unit Price</th>
                         <th class="wd-10p">Total Price</th>
-                        <th class="wd-10p">Payment</th>
-                        <th class="wd-10p">Due</th>
+                        <th class="wd-10p">Due Payment</th>
                         <th class="wd-10p">Action</th>
                     </tr>
                 </thead>
@@ -42,20 +41,15 @@
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->product_qty }}</td>
                         <td>{{ $row->per_unit_price }}</td>
-                        <td>{{ number_format($row->per_unit_price * $row->product_qty, 2) }}</td>
-                        <td>{{ $row->payment }}</td>
-                        <td>{{ number_format($row->per_unit_price * $row->product_qty - $row->payment, 2) }}</td> 
+                        <td>{{ number_format($row->per_unit_price * $row->product_qty, 2) }} taka</td>
+                        <td>{{ number_format($row->per_unit_price * $row->product_qty - $row->payment, 2) }} taka</td> 
                         <td>
-                            @can('invoice')
-                            <a href="" class="btn btn-info btn-sm" style="border-radius: 5px;">Invoice
-                            @endcan
-                            @can('payment')
-                            <a href="{{ route('payment') }}" class="btn btn-danger btn-sm" style="margin-left:5px; border-radius: 5px;">Payment
-                            @endcan
-
+                            <a href="{{ route('payment.show', ['customerId' => $row->customer_id, 'productId' => $row->product_id]) }}" 
+                               class="btn btn-primary btn-sm" 
+                               style="width:60px; padding:5px; border-radius: 5px;">
+                               <i class="fa fa-eye"></i> <!-- Eye icon -->
                             </a>
                         </td>
-                        
                     </tr>
                     @endforeach
                 </tbody>

@@ -6,7 +6,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-end">
                     @can('customer-create-list')
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addNewModalId">Add New</button>
+                    <button type="button" class="btn btn-sm btn-warning" style="border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#addNewModalId">Add New</button>
                     @endcan
                 </div>
             </div>

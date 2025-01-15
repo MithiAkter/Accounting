@@ -74,24 +74,24 @@ class ProductController extends Controller
         // $data['sell_qty']=$request->sell_qty;
         $data['per_unit_price']=$request->per_unit_price;
     
-        // Check and handle image uploads
+
         if ($request->hasFile('product_img')) {
             $product_img = $request->file('product_img');
             $filename = time() . "_Products." . $product_img->getClientOriginalExtension();
             $path = 'public/media/product';
     
-            // Move the image and get the full path
+
             $product_img->move(public_path($path), $filename);
             $data['product_img'] = $path . '/' . $filename;
     
-            // Optional: Delete the old image if exists
+
             $oldImage = DB::table('products')->where('id', $id)->value('product_img');
             if ($oldImage && file_exists(public_path($oldImage))) {
                 unlink(public_path($oldImage));
             }
         }
     
-        // Update the database record
+
         $update = DB::table('products')->where('id', $id)->update($data);
     
         if ($update !== false) {

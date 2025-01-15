@@ -13,6 +13,9 @@
     <div class="card pd-20 pd-sm-40">
         <h6 class="card-body-title">
             Product List
+            @can('payment')
+            <a href="{{ route('payment.index') }}" class="btn btn-danger btn-sm" style="margin-left:5px; border-radius: 5px; float: right;">Payment</a>
+            @endcan
             @can('product-show')
             <a href="{{ route('products.index') }}" class="btn btn-warning btn-sm" style="margin-left:5px; border-radius: 5px; float: right;">All Product</a>
             @endcan
@@ -40,9 +43,9 @@
                         <td>{{ $row->product_name }}</td>
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->product_qty }}</td>
-                        <td>{{ $row->per_unit_price }}</td>
-                        <td>{{ number_format($row->per_unit_price * $row->product_qty, 2) }} taka</td>
-                        <td>{{ number_format($row->per_unit_price * $row->product_qty - $row->payment, 2) }} taka</td> 
+                        <td>{{ $row->per_unit_price }} ৳</td>
+                        <td>{{ number_format($row->per_unit_price * $row->product_qty, 2) }} ৳</td>
+                        <td>{{ number_format($row->per_unit_price * $row->product_qty - $row->payment, 2) }} ৳</td> 
                         <td>
                             <a href="{{ route('payment.show', ['customerId' => $row->customer_id, 'productId' => $row->product_id]) }}" 
                                class="btn btn-primary btn-sm" 

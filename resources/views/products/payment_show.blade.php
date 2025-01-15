@@ -4,11 +4,14 @@
     <div class="card pd-20 pd-sm-40">
         <h6 class="card-body-title">
             Payment Details
-            <!-- Invoice Print Button -->
-            @can('payment')
+            
                 <a href="{{ route('payment.index') }}" class="btn btn-danger btn-sm" style="margin-left:5px; border-radius: 5px; float: right;">Payment</a>
+            
+            @can('payment')
+                @if($payments->contains('due_payment', 0.00))
+                    <button id="printInvoice" class="btn btn-primary btn-sm" style="margin-left:5px; border-radius: 5px; float: right;">Print Invoice</button>
+                @endif
             @endcan
-            <button id="printInvoice" class="btn btn-primary btn-sm" style="margin-left:5px; border-radius: 5px; float: right;">Print Invoice</button>
         </h6>
         <div class="table-wrapper">
             <table id="invoice-table" class="table display responsive nowrap">
@@ -16,8 +19,11 @@
                     <tr>
                         <th class="wd-10p">Customer Name</th>
                         <th class="wd-10p">Product Name</th>
+                        <th class="wd-10p">Per Unit Price</th>
+                        <th class="wd-10p">Purchased Product Qty</th>
+                        <th class="wd-10p">Payable</th>
+                        <th class="wd-10p">Paid</th>
                         <th class="wd-10p">Due Payment</th>
-                        <th class="wd-10p">New Payment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,8 +31,12 @@
                     <tr>
                         <td>{{ $payment->customer_name }}</td>
                         <td>{{ $payment->product_name }}</td>
-                        <td>{{ $payment->due_payment }}</td>
-                        <td>{{ $payment->new_payment }}</td>
+                        <td>{{ $payment->per_unit_price }} ৳</td>
+                        <td>{{ $payment->product_qty }}</td>
+                        <td>{{ $payment->product_qty * $payment->per_unit_price }} ৳</td>
+                        <td>{{ $payment->new_payment }} ৳</td>
+                        <td>{{ $payment->due_payment }} ৳</td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -45,18 +55,17 @@
 
             // Get the button and table
             const printButton = document.getElementById('printInvoice');
-            const table = document.getElementById('invoice-table');
+            if (printButton) {
+                printButton.addEventListener('click', function () {
+                    const doc = new jsPDF();
 
-            // Add event listener to the button
-            printButton.addEventListener('click', function() {
-                const doc = new jsPDF();
-                
-                // Generate the table as a PDF
-                doc.autoTable({ html: '#invoice-table' });
+                    // Generate the table as a PDF
+                    doc.autoTable({ html: '#invoice-table' });
 
-                // Save the PDF
-                doc.save('invoice.pdf');
-            });
+                    // Save the PDF
+                    doc.save('invoice.pdf');
+                });
+            }
         });
     </script>
 @endsection

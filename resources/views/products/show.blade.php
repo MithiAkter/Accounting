@@ -26,21 +26,23 @@
                             <img src="{{ URL::to($product->product_img) }}" id="one" style="height: 80px; width:100px;">
                         </div>
                     </div>
+                    
                     <div class="col-lg-12">
                         <div class="form-group">
+                            <br>
                             <label class="form-control-label">Product Quantity: <span class="tx-danger">*</span></label>
                             <br>
                             <strong>{{ $product->product_qty }}</strong>
                         </div>
                     </div>
 
-                    <div class="col-lg-12">
+                    {{-- <div class="col-lg-12">
                         <div class="form-group">
                             <label class="form-control-label">Quantity: <span class="tx-danger">*</span></label>
                             <br>
                             <strong>{{ $product->sell_qty }}</strong>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="col-lg-12">
                         <div class="form-group mg-b-10-force">

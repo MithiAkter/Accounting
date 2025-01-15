@@ -15,9 +15,9 @@
                     <tr>
                         <th class="wd-15p">Product ID</th>
                         <th class="wd-15p">Product Name</th>
-                        <th class="wd-1p">Image</th>
+                        <th class="wd-15p">Image</th>
                         <th class="wd-10p">Total Product Quantity</th>
-                        <th class="wd-10p">Availavle Product Quantity</th>
+                        {{-- <th class="wd-10p">Availavle Product Quantity</th>  --}}
                         <th class="wd-10p">Per Unit Price</th>
                         {{-- <th class="wd-10p">Total Price</th> --}}
                         <th class="wd-25p">Action</th>
@@ -31,8 +31,8 @@
                         <td>{{ $row->product_name }}</td>
                         <td><img src="{{ URL::to($row->product_img) }}" alt="brand img" height="60px;" width="80px;"></td>
                         <td>{{ $row->total_qty }}</td>
-                        <td>{{ $row->product_qty }}</td>
-                        <td>{{ $row->per_unit_price }} taka</td>
+                        {{-- <td>{{ $row->product_qty }}</td> --}}
+                        <td>{{ $row->per_unit_price }} ৳</td>
                         {{-- <td>{{ number_format($row->product_qty * $row->per_unit_price, 2) }} taka</td> --}}
                         
                         <td>
@@ -63,7 +63,4 @@
             </table>
         </div>
     </div>
-
-
-
 @endsection
